@@ -122,9 +122,8 @@ export function Hero() {
               <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="block">
                 {HERO_DATA.headline.top}
               </motion.span>
-              <motion.span
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                style={{ color: "var(--accent-color)", opacity: 0.4 }}
+              <motion.span 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
                 className="italic font-light block"
               >
                 {HERO_DATA.headline.bottom}

@@ -13,14 +13,14 @@
 
 :root {
   /* GLOBAL BRAND CONTROL: DARK THEME (Default) */
-  --bg-color: #35251f; /* Deep Mocha Brown (Matches "Luxury" hue) */
-  --text-color: #fdfcfb;
-  --accent-color: #c29a73; /* Warm Toffee Bronze */
+  --bg-color: #35251f; /* Deep Mocha Brown */
+  --text-color: #c29a73; /* Luxury Toffee Bronze (Matches "Luxury" text) */
+  --accent-color: #fdfcfb; /* Antique White Accent */
   --secondary-text: #a68d85;
   --glass: rgba(53, 37, 31, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --cta-bg: #35251f;
-  --cta-text: #fdfcfb;
+  --glass-border: rgba(194, 154, 115, 0.2);
+  --cta-bg: #c29a73;
+  --cta-text: #35251f;
 
   /* Shadcn Overrides */
   --background: var(--bg-color);
@@ -32,12 +32,12 @@
 .light {
   /* GLOBAL BRAND CONTROL: LIGHT THEME */
   --bg-color: #fdfcfb;
-  --text-color: #35251f; /* Matches the deep brown DNA */
-  --accent-color: #8c6239;
+  --text-color: #8c6239; /* Deep Toffee for legibility on white */
+  --accent-color: #35251f;
   --secondary-text: #7a6762;
   --glass: rgba(253, 252, 251, 0.4);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --cta-bg: #35251f;
+  --glass-border: rgba(140, 98, 57, 0.1);
+  --cta-bg: #8c6239;
   --cta-text: #fdfcfb;
 
   /* Shadcn Overrides */
