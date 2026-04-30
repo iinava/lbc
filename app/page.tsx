@@ -5,7 +5,6 @@ import { Services } from "@/components/Services";
 export default function Home() {
   return (
     <main className="min-h-[100dvh]">
-      <Navbar />
       <Hero />
       <Services />
     </main>

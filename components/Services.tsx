@@ -4,56 +4,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkle, CaretLeft, CaretRight } from '@phosphor-icons/react';
 import Link from 'next/link';
+import { SERVICES_DATA } from '@/data/services';
 
-const SERVICES_DATA = {
-  header: {
-    eyebrow: "Our Rituals",
-    title: "Curated Excellence",
-    description: "A bespoke collection of grooming and wellness experiences, meticulously crafted for those who value the luxury of refinement."
-  },
-  categories: [
-    {
-      id: "hair",
-      title: "Hair Mastery",
-      tag: "Styling",
-      description: "Precision cuts, bespoke coloring, and advanced structural treatments for the modern individual.",
-      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1200",
-      href: "/services/hair"
-    },
-    {
-      id: "skin",
-      title: "Luminescence",
-      tag: "Wellness",
-      description: "Restorative face rituals and deep skin alchemy to reveal your natural glow.",
-      image: "https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&q=80&w=800",
-      href: "/services/skin"
-    },
-    {
-      id: "grooming",
-      title: "Grooming",
-      tag: "Precision",
-      description: "Elite beard styling and traditional razor ceremonies in a master-barber environment.",
-      image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=800",
-      href: "/services/grooming"
-    },
-    {
-      id: "nails",
-      title: "Artistry",
-      tag: "Aesthetics",
-      description: "Minimalist nail designs and restorative hand therapy for a polished expression.",
-      image: "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&q=80&w=800",
-      href: "/services/nails"
-    },
-    {
-      id: "bridal",
-      title: "Bridal",
-      tag: "Sacred",
-      description: "Bespoke styling and makeup artistry for your most significant and sacred moments.",
-      image: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&q=80&w=800",
-      href: "/services/bridal"
-    }
-  ]
-};
 
 const ServiceCard = ({ category }: { category: any }) => {
   return (
