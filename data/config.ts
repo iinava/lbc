@@ -38,20 +38,39 @@ export const HERO_DATA = {
   partners: ["VOGUE", "ELLE", "GQ", "BAZAAR", "DAZED"]
 };
 
+export const THEME_DATA = {
+  dark: {
+    bg: "#120c0b",
+    text: "#fdfcfb",
+    accent: "#d4b08c",
+    secondaryText: "#a1a1aa", // zinc-400
+    glass: "rgba(18, 12, 11, 0.4)",
+    glassBorder: "rgba(255, 255, 255, 0.1)"
+  },
+  light: {
+    bg: "#fdfcfb",
+    text: "#120c0b",
+    accent: "#8c6239", // Deeper brown for light mode
+    secondaryText: "#71717a", // zinc-500
+    glass: "rgba(253, 252, 251, 0.4)",
+    glassBorder: "rgba(0, 0, 0, 0.1)"
+  }
+};
+
 export const GALLERY_DATA = {
   column1: [
     { url: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800", alt: "Salon Interior" },
-    { url: "https://images.unsplash.com/photo-1522337360788-8b13df772ec2?auto=format&fit=crop&q=80&w=800", alt: "Grooming Detail" },
+    { url: "https://i.pinimg.com/736x/c2/d0/f4/c2d0f4275fb00c800ba273c708375419.jpg", alt: "Grooming Detail" },
     { url: "https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&q=80&w=800", alt: "Treatment Room" },
   ],
   column2: [
-    { url: "https://images.unsplash.com/photo-1512690190541-d89063857398?auto=format&fit=crop&q=80&w=800", alt: "Stylist at Work" },
+    { url: "https://i.pinimg.com/736x/fb/5c/38/fb5c38774490ba33b6ee20af1da03743.jpg", alt: "Stylist at Work" },
     { url: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=800", alt: "Grooming Products" },
     { url: "https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&q=80&w=800", alt: "Relaxation Area" },
   ],
   column3: [
     { url: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&q=80&w=800", alt: "Wellness Sanctuary" },
-    { url: "https://images.unsplash.com/photo-1595475241949-0d021200d5c7?auto=format&fit=crop&q=80&w=800", alt: "Hair Detail" },
+    { url: "https://i.pinimg.com/736x/b9/72/6d/b9726d0e5f9daf1161a9de13cce91668.jpg", alt: "Hair Detail" },
     { url: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&q=80&w=800", alt: "Salon Ambience" },
   ],
   stats: [

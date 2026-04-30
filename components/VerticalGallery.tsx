@@ -4,13 +4,17 @@ import { motion } from "motion/react";
 import { GALLERY_DATA } from "@/data/config";
 
 function DataCard({ title, value, color }: { title: string, value: string, color: string }) {
+  const isDark = color.includes('#3d2b24');
+  const textColor = isDark ? 'text-white' : 'text-black';
+  const subTextColor = isDark ? 'text-white/70' : 'text-black/70';
+
   return (
     <motion.div 
       whileHover={{ scale: 1.05 }}
       className={`relative w-full aspect-square rounded-2xl p-4 md:p-6 flex flex-col justify-between ${color} border border-white/10 shadow-2xl transition-all duration-500`}
     >
-      <div className="text-xl md:text-3xl font-medium tracking-tighter text-black/90 drop-shadow-sm" style={{ fontFamily: "var(--font-playfair)" }}>{value}</div>
-      <div className="text-[7px] md:text-[9px] uppercase tracking-[0.25em] font-black text-black/70 leading-tight">{title}</div>
+      <div className={`text-xl md:text-3xl font-medium tracking-tighter ${textColor} drop-shadow-sm`} style={{ fontFamily: "var(--font-playfair)" }}>{value}</div>
+      <div className={`text-[7px] md:text-[9px] uppercase tracking-[0.25em] font-black ${subTextColor} leading-tight`}>{title}</div>
     </motion.div>
   );
 }

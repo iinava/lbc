@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: "The Premium Salon Experience at Calicut. PRO-AESTHETIC SALOON.",
 };
 
+import { ThemeProvider } from "@/context/ThemeContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,7 +32,11 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", playfair.variable, outfit.variable, "font-sans", geist.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
