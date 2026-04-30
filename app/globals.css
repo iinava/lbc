@@ -14,11 +14,14 @@
 :root {
   /* GLOBAL BRAND CONTROL: DARK THEME (Default) */
   --bg-color: #35251f; /* Deep Mocha Brown */
+  --bg-rgb: 53, 37, 31;
   --text-color: #c29a73; /* Luxury Toffee Bronze (Matches "Luxury" text) */
+  --text-rgb: 194, 154, 115;
   --accent-color: #fdfcfb; /* Antique White Accent */
+  --accent-rgb: 253, 252, 251;
   --secondary-text: #a68d85;
-  --glass: rgba(53, 37, 31, 0.4);
-  --glass-border: rgba(194, 154, 115, 0.2);
+  --glass: rgba(var(--bg-rgb), 0.4);
+  --glass-border: rgba(var(--text-rgb), 0.2);
   --cta-bg: #c29a73;
   --cta-text: #35251f;
 
@@ -32,11 +35,14 @@
 .light {
   /* GLOBAL BRAND CONTROL: LIGHT THEME */
   --bg-color: #fdfcfb;
+  --bg-rgb: 253, 252, 251;
   --text-color: #8c6239; /* Deep Toffee for legibility on white */
+  --text-rgb: 140, 98, 57;
   --accent-color: #35251f;
+  --accent-rgb: 53, 37, 31;
   --secondary-text: #7a6762;
-  --glass: rgba(253, 252, 251, 0.4);
-  --glass-border: rgba(140, 98, 57, 0.1);
+  --glass: rgba(var(--bg-rgb), 0.4);
+  --glass-border: rgba(var(--text-rgb), 0.1);
   --cta-bg: #8c6239;
   --cta-text: #fdfcfb;
 

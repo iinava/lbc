@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
 import { ArrowUpRight, Sparkle, CaretLeft, CaretRight } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { SERVICES_DATA } from '@/data/services';
@@ -67,7 +67,7 @@ const ServiceCard = ({ category }: { category: any }) => {
 
 export function Services() {
   const [isHovered, setIsHovered] = React.useState(false);
-  const [xOffset, setXOffset] = React.useState(0);
+  const x = useMotionValue(0);
   const containerRef = React.useRef<HTMLDivElement>(null);
   
   // 3x duplication for infinite seamless loop
@@ -78,36 +78,31 @@ export function Services() {
   const cardWidth = 350 + 32; 
   const totalWidth = cardWidth * totalCategories;
 
+  // Initial positioning in the middle set
+  React.useEffect(() => {
+    x.set(-totalWidth);
+  }, [totalWidth, x]);
+
   // Manual Scroll
   const scroll = (direction: 'left' | 'right') => {
     const shift = cardWidth;
-    setXOffset(prev => direction === 'left' ? prev + shift : prev - shift);
+    const current = x.get();
+    x.set(direction === 'left' ? current + shift : current - shift);
   };
 
-  // Autoscroll Loop Logic
-  React.useEffect(() => {
-    let animationId: number;
-    const speed = 0.8; // Pixels per frame
-
-    const animate = () => {
-      if (!isHovered) {
-        setXOffset(prev => {
-          let next = prev - speed;
-          // Seamless reset: If we've scrolled past one full set, snap back to the middle set
-          if (Math.abs(next) >= totalWidth * 2) return next + totalWidth;
-          if (next > -totalWidth) return next - totalWidth;
-          return next;
-        });
+  // Autoscroll Loop Logic (Performant)
+  useAnimationFrame((t, delta) => {
+    if (!isHovered) {
+      const speed = 0.05; // Pixels per ms
+      let next = x.get() - (speed * delta);
+      
+      // Seamless reset
+      if (next <= -totalWidth * 2) {
+        next += totalWidth;
       }
-      animationId = requestAnimationFrame(animate);
-    };
-
-    // Initial positioning in the middle set for bidirectional infinite feel
-    setXOffset(-totalWidth);
-    
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
-  }, [isHovered, totalWidth]);
+      x.set(next);
+    }
+  });
 
   return (
     <section id="services" className="relative w-full min-h-[100dvh] flex flex-col justify-center py-12 md:py-16 bg-[var(--bg-color)] overflow-hidden">
@@ -163,8 +158,7 @@ export function Services() {
         >
           <motion.div 
             ref={containerRef}
-            animate={{ x: xOffset }}
-            transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
+            style={{ x }}
             className="flex gap-4 md:gap-8 w-fit py-4"
           >
             {loopedCategories.map((category, index) => (
