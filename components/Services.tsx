@@ -105,7 +105,7 @@ export function Services() {
   });
 
   return (
-    <section id="services" className="relative w-full min-h-[100dvh] flex flex-col justify-center py-12 md:py-16 bg-[var(--bg-color)] overflow-hidden">
+    <section id="services" className="relative h w-full min-h-[100dvh] flex flex-col justify-center py-12 md:py-16 bg-[var(--bg-color)] overflow-hidden">
       
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 w-full relative z-10">
         
