@@ -28,15 +28,12 @@ export function Navbar() {
   // Readability & Depth: Dynamic Background Contrast
   const navBgOpacity = useTransform(scrollY, [0, 150], [0.4, 0.98]);
   const navBgColor = useTransform(navBgOpacity, (v) => 
-    theme === 'dark' ? `rgba(18, 12, 11, ${v})` : `rgba(253, 252, 251, ${v})`
+    `rgba(var(--bg-rgb), ${v})` 
   );
 
-  // Double-Bezel Inner Shadow Intensity
-  const innerShadow = useTransform(scrollY, [0, 150], [
-    theme === 'dark' ? "inset 0 1px 1px rgba(255,255,255,0.1)" : "inset 0 1px 1px rgba(0,0,0,0.05)",
-    theme === 'dark' ? "inset 0 1px 1px rgba(255,255,255,0.3)" : "inset 0 1px 1px rgba(0,0,0,0.1)"
-  ]);
-
+  // Note: For rgba with variables, we might need rgb components. 
+  // But I'll just use the variables directly where possible.
+  
   if (!mounted) return null;
 
   return (
@@ -54,17 +51,17 @@ export function Navbar() {
           {/* OUTER SHELL (Double-Bezel Architecture) */}
           <div 
             style={{ 
-              backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-              borderColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+              backgroundColor: "var(--glass)",
+              borderColor: "var(--glass-border)"
             }}
-            className="w-full flex items-center justify-between p-1 md:p-1.5 rounded-full backdrop-blur-[80px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transition-colors duration-700"
+            className="w-full flex items-center justify-between p-1 md:p-1.5 rounded-full backdrop-blur-[80px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]"
           >
             
             {/* INNER CORE */}
             <motion.div 
                style={{ 
-                 boxShadow: innerShadow,
-                 backgroundColor: navBgColor
+                 boxShadow: theme === 'dark' ? "inset 0 1px 1px rgba(255,255,255,0.1)" : "inset 0 1px 1px rgba(0,0,0,0.05)",
+                 backgroundColor: "var(--bg-color)"
                }}
                className="w-full h-full flex items-center justify-between px-6 py-3 md:px-8 md:py-3.5 rounded-full backdrop-blur-[40px] overflow-hidden"
             >
@@ -72,17 +69,17 @@ export function Navbar() {
               <Link href={NAV_DATA.logo.href} className="flex items-center gap-3 group">
                 <div className="relative flex items-center justify-center">
                   <div 
-                    style={{ backgroundColor: currentTheme.accent }}
-                    className="w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-500 shadow-[0_0_8px_rgba(212,176,140,0.4)]" 
+                    style={{ backgroundColor: "var(--accent-color)" }}
+                    className="w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-500 shadow-[0_0_8px_var(--accent-color)]" 
                   />
                   <div 
-                    style={{ backgroundColor: currentTheme.accent }}
+                    style={{ backgroundColor: "var(--accent-color)" }}
                     className="absolute inset-0 blur-md opacity-40" 
                   />
                 </div>
                 <span 
-                  style={{ color: currentTheme.text, fontFamily: "var(--font-playfair)" }}
-                  className="text-lg md:text-xl tracking-tighter font-medium transition-colors duration-700"
+                  style={{ color: "var(--text-color)", fontFamily: "var(--font-playfair)" }}
+                  className="text-lg md:text-xl tracking-tighter font-medium"
                 >
                   {NAV_DATA.logo.text}
                 </span>
@@ -94,12 +91,12 @@ export function Navbar() {
                   <Link 
                     key={link.name} 
                     href={link.href}
-                    style={{ color: theme === 'dark' ? '#d1d1d6' : '#555' }}
-                    className="relative text-[9px] uppercase tracking-[0.5em] font-black hover:!text-[#d4b08c] transition-all duration-500 group flex flex-col items-center gap-1"
+                    style={{ color: "var(--secondary-text)" }}
+                    className="relative text-[9px] uppercase tracking-[0.5em] font-black hover:!text-[var(--accent-color)] transition-all duration-500 group flex flex-col items-center gap-1"
                   >
                     {link.name}
                     <motion.div 
-                      style={{ backgroundColor: currentTheme.accent }}
+                      style={{ backgroundColor: "var(--accent-color)" }}
                       className="w-1 h-1 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500" 
                     />
                   </Link>
@@ -111,25 +108,26 @@ export function Navbar() {
                 {/* Theme Toggle */}
                 <button 
                   onClick={toggleTheme}
-                  style={{ color: currentTheme.text, backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}
-                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-700 hover:scale-110 active:scale-95 border border-white/5"
+                  style={{ color: "var(--text-color)", backgroundColor: "var(--glass)" }}
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-700 hover:scale-110 active:scale-95 border border-[var(--glass-border)]"
                 >
                   {theme === 'dark' ? <Sun size={20} weight="light" /> : <Moon size={20} weight="light" />}
                 </button>
 
                 <button 
                   style={{ 
-                    backgroundColor: currentTheme.text,
-                    color: currentTheme.bg
+                    backgroundColor: "var(--cta-bg)",
+                    color: "var(--cta-text)",
+                    border: "1px solid var(--glass-border)"
                   }}
                   className="hidden md:flex items-center gap-6 pl-6 pr-1.5 py-1.5 rounded-full group hover:scale-[1.02] active:scale-[0.98] transition-all duration-700 shadow-2xl"
                 >
                   <span className="text-[10px] uppercase tracking-[0.4em] font-black" style={{ fontFamily: "var(--font-outfit)" }}>{NAV_DATA.cta.text}</span>
                   <div 
-                    style={{ backgroundColor: currentTheme.bg }}
-                    className="w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-[#d4b08c] transition-colors duration-500"
+                    style={{ backgroundColor: "var(--cta-text)" }}
+                    className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-500"
                   >
-                    <ArrowUpRight weight="bold" size={14} style={{ color: currentTheme.text }} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-500" />
+                    <ArrowUpRight weight="bold" size={14} style={{ color: "var(--cta-bg)" }} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-500" />
                   </div>
                 </button>
 
@@ -140,18 +138,18 @@ export function Navbar() {
                 >
                   <motion.div 
                     animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                    style={{ backgroundColor: currentTheme.text }}
-                    className="w-5 h-[1.5px] rounded-full transition-all duration-500" 
+                    style={{ backgroundColor: "var(--text-color)" }}
+                    className="w-5 h-[1.5px] rounded-full" 
                   />
                   <motion.div 
                     animate={isMobileMenuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
-                    style={{ backgroundColor: currentTheme.accent }}
-                    className="w-5 h-[1.5px] rounded-full transition-all duration-500" 
+                    style={{ backgroundColor: "var(--accent-color)" }}
+                    className="w-5 h-[1.5px] rounded-full" 
                   />
                   <motion.div 
                     animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                    style={{ backgroundColor: currentTheme.text }}
-                    className="w-5 h-[1.5px] rounded-full transition-all duration-500" 
+                    style={{ backgroundColor: "var(--text-color)" }}
+                    className="w-5 h-[1.5px] rounded-full" 
                   />
                 </button>
               </div>
@@ -167,8 +165,8 @@ export function Navbar() {
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(40px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            style={{ backgroundColor: theme === 'dark' ? 'rgba(18, 12, 11, 0.95)' : 'rgba(253, 252, 251, 0.95)' }}
-            className="fixed inset-0 z-[90] flex flex-col items-center justify-center px-8 transition-colors duration-700"
+            style={{ backgroundColor: "var(--bg-color)", opacity: 0.95 }}
+            className="fixed inset-0 z-[90] flex flex-col items-center justify-center px-8"
           >
             <div className="flex flex-col items-center gap-12">
               {NAV_DATA.links.concat([{ name: NAV_DATA.cta.text, href: NAV_DATA.cta.href }]).map((item, i) => (
@@ -182,8 +180,8 @@ export function Navbar() {
                   <Link 
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    style={{ color: currentTheme.text, fontFamily: "var(--font-playfair)" }}
-                    className="text-5xl md:text-7xl font-medium hover:text-[#d4b08c] transition-all duration-500 tracking-tighter text-center"
+                    style={{ color: "var(--text-color)", fontFamily: "var(--font-playfair)" }}
+                    className="text-5xl md:text-7xl font-medium hover:text-[var(--accent-color)] transition-all duration-500 tracking-tighter text-center"
                   >
                     {item.name === 'Enquire Now' ? 'Enquiry' : item.name}.
                   </Link>

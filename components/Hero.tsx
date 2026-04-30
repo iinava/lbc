@@ -51,8 +51,8 @@ export function Hero() {
 
   return (
     <section
-      style={{ backgroundColor: currentTheme.bg }}
-      className="relative w-full min-h-[100dvh] overflow-hidden flex items-center justify-center selection:bg-[#d4b08c]/30 selection:text-white transition-colors duration-700"
+      style={{ backgroundColor: "var(--bg-color)" }}
+      className="relative w-full min-h-[100dvh] overflow-hidden flex items-center justify-center selection:bg-[var(--accent-color)] selection:text-white"
     >
       {/* Background Animated Elements */}
       <div className="absolute inset-0 z-0">
@@ -65,18 +65,18 @@ export function Hero() {
           edgeFadeWidth={0.0}
           colorCycleSpeed={0.5}
           brightness={theme === 'dark' ? 0.25 : 0.05}
-          color1={theme === 'dark' ? "#241b19" : "#e5e5e5"}
-          color2={theme === 'dark' ? "#120c0b" : "#fdfcfb"}
-          color3={theme === 'dark' ? "#3d2b24" : "#d4b08c"}
+          color1={theme === 'dark' ? "#35251f" : "#e5e5e5"}
+          color2={theme === 'dark' ? "#35251f" : "#fdfcfb"}
+          color3={theme === 'dark' ? "#c29a73" : "#8c6239"}
           enableMouseInteraction={true}
           mouseInfluence={2.0}
         /> */}
         <div
-          style={{ backgroundColor: currentTheme.accent }}
+          style={{ backgroundColor: "var(--accent-color)" }}
           className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] opacity-[0.05] blur-[120px] rounded-full"
         />
         <div
-          style={{ backgroundColor: currentTheme.text }}
+          style={{ backgroundColor: "var(--text-color)" }}
           className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] opacity-[0.05] blur-[150px] rounded-full"
         />
       </div>
@@ -98,7 +98,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              style={{ color: currentTheme.accent }}
+              style={{ color: "var(--accent-color)" }}
               className="flex items-center gap-2 font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[9px] md:text-[10px]"
             >
               <Sparkle weight="fill" className="animate-pulse" />
@@ -116,15 +116,15 @@ export function Hero() {
                   },
                 },
               }}
-              style={{ color: currentTheme.text, fontFamily: "var(--font-playfair)" }}
-              className="text-5xl md:text-7xl lg:text-9xl font-medium leading-[0.85] lg:leading-[0.8] tracking-[-0.04em] [text-shadow:_0_20px_40px_rgba(0,0,0,0.1)] transition-colors duration-700"
+              style={{ color: "var(--text-color)", fontFamily: "var(--font-playfair)" }}
+              className="text-5xl md:text-7xl lg:text-9xl font-medium leading-[0.85] lg:leading-[0.8] tracking-[-0.04em] [text-shadow:_0_20px_40px_rgba(0,0,0,0.1)]"
             >
               <motion.span variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="block">
                 {HERO_DATA.headline.top}
               </motion.span>
               <motion.span
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                style={{ color: `${currentTheme.accent}66` }}
+                style={{ color: "var(--accent-color)", opacity: 0.4 }}
                 className="italic font-light block"
               >
                 {HERO_DATA.headline.bottom}
@@ -133,36 +133,70 @@ export function Hero() {
           </div>
 
           <p
-            style={{ color: currentTheme.secondaryText, fontFamily: "var(--font-outfit)" }}
-            className="text-sm md:text-lg max-w-[45ch] leading-relaxed font-medium transition-colors duration-700"
+            style={{ color: "var(--secondary-text)", fontFamily: "var(--font-outfit)" }}
+            className="text-sm md:text-lg max-w-[45ch] leading-relaxed font-medium"
           >
             {HERO_DATA.description}
           </p>
 
+          {/* Social Proof Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="flex flex-col sm:flex-row items-center gap-6 pt-2"
+          >
+            {/* Avatar Stack */}
+            <div className="flex -space-x-3">
+              {[
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop"
+              ].map((src, i) => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-[var(--bg-color)] overflow-hidden ring-2 ring-[var(--accent-color)]/20 transition-transform hover:scale-110 hover:z-10">
+                  <img src={src} alt="Client" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+
+            {/* Rating & Text */}
+            <div className="flex flex-col items-center sm:items-start gap-1">
+              <div className="flex items-center gap-2">
+                <div className="flex text-[var(--accent-color)]">
+                  {[...Array(5)].map((_, i) => (
+                    <Sparkle key={i} weight="fill" size={12} className={i === 4 ? "opacity-70" : ""} />
+                  ))}
+                </div>
+                <span style={{ color: "var(--text-color)" }} className="text-sm font-bold tracking-tight">4.9</span>
+              </div>
+              <span style={{ color: "var(--secondary-text)" }} className="text-[10px] uppercase tracking-[0.2em] font-black">
+                Loved by 10k+ trusted clients
+              </span>
+            </div>
+          </motion.div>
+
           <div className="flex flex-col sm:flex-row items-center gap-8 md:gap-10 pt-6">
-            <MagneticButton
-              style={{
-                backgroundColor: currentTheme.text,
-                color: currentTheme.bg,
+            <motion.button 
+              whileTap={{ scale: 0.95 }}
+              style={{ 
+                backgroundColor: "var(--cta-bg)",
+                color: "var(--cta-text)",
+                border: theme === 'dark' ? "1px solid var(--glass-border)" : "none",
                 fontFamily: "var(--font-outfit)"
               }}
-              className="w-full sm:w-auto px-10 md:px-14 py-5 md:py-7 rounded-full font-black text-[10px] md:text-[11px] tracking-[0.3em] uppercase flex items-center justify-center gap-4 group transition-all duration-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] overflow-hidden relative active:scale-95"
+              className="w-full sm:w-auto px-10 md:px-14 py-5 md:py-7 rounded-full font-black text-[10px] md:text-[11px] tracking-[0.3em] uppercase flex items-center justify-center gap-4 group transition-all duration-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] overflow-hidden relative"
             >
               <span className="relative z-10">{HERO_DATA.primaryCta.text}</span>
-              <ArrowUpRight weight="bold" size={16} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              <div
-                style={{ backgroundColor: currentTheme.accent }}
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
-              />
-            </MagneticButton>
+              <ArrowUpRight weight="bold" size={16} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+            </motion.button>
 
             <button
-              style={{ color: currentTheme.secondaryText, fontFamily: "var(--font-outfit)" }}
-              className="hover:!text-[#d4b08c] transition-all duration-500 flex items-center gap-4 font-black uppercase text-[9px] md:text-[10px] tracking-[0.4em] group"
+              style={{ color: "var(--secondary-text)", fontFamily: "var(--font-outfit)" }}
+              className="hover:!text-[var(--accent-color)] transition-all duration-500 flex items-center gap-4 font-black uppercase text-[9px] md:text-[10px] tracking-[0.4em] group"
             >
               {HERO_DATA.secondaryCta.text}
               <div
-                style={{ backgroundColor: currentTheme.accent }}
+                style={{ backgroundColor: "var(--accent-color)" }}
                 className="w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform"
               />
             </button>

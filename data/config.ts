@@ -23,8 +23,8 @@ export const NAV_DATA = {
 export const HERO_DATA = {
   eyebrow: "The Art of Refinement",
   headline: {
-    top: "Ethereal",
-    bottom: "Rituals"
+    top: "Style Meets",
+    bottom: "Luxury"
   },
   description: "A bespoke grooming and wellness sanctuary for individuals who value precision, elegance, and the luxury of quiet confidence.",
   primaryCta: {
@@ -40,18 +40,18 @@ export const HERO_DATA = {
 
 export const THEME_DATA = {
   dark: {
-    bg: "#120c0b",
-    text: "#fdfcfb",
-    accent: "#d4b08c",
-    secondaryText: "#a1a1aa", // zinc-400
-    glass: "rgba(18, 12, 11, 0.4)",
+    bg: "#251815", // Deep Coffee Brown
+    text: "#fdfcfb", // Antique White
+    accent: "#c29a73", // Warm Toffee Bronze
+    secondaryText: "#a68d85", // Warm Taupe
+    glass: "rgba(37, 24, 21, 0.4)",
     glassBorder: "rgba(255, 255, 255, 0.1)"
   },
   light: {
-    bg: "#fdfcfb",
-    text: "#120c0b",
-    accent: "#8c6239", // Deeper brown for light mode
-    secondaryText: "#71717a", // zinc-500
+    bg: "#fdfcfb", // Antique White
+    text: "#35251f", // Rich Mocha Brown
+    accent: "#8c6239", // Deep Toffee
+    secondaryText: "#7a6762", // Muted Coffee
     glass: "rgba(253, 252, 251, 0.4)",
     glassBorder: "rgba(0, 0, 0, 0.1)"
   }
