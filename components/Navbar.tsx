@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { List, X } from "@phosphor-icons/react";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
 
 export function Navbar() {
@@ -14,122 +14,133 @@ export function Navbar() {
     setMounted(true);
   }, []);
 
-  // Scroll-based transformations for the "Floating Island" aesthetic
-  const navWidth = useTransform(scrollY, [0, 100], ["100%", "95%"]);
-  const navBg = useTransform(scrollY, [0, 100], ["rgba(9, 9, 11, 0)", "rgba(9, 9, 11, 0.8)"]);
-  const navBorder = useTransform(scrollY, [0, 100], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.1)"]);
-  const navY = useTransform(scrollY, [0, 100], ["0px", "20px"]);
-  const navRadius = useTransform(scrollY, [0, 100], ["0px", "24px"]);
-  const navPadding = useTransform(scrollY, [0, 100], ["1.5rem 3rem", "1rem 2rem"]);
+  // Spatial Rhythm: Dynamic Island Morphing
+  const navWidth = useTransform(scrollY, [0, 150], ["100%", "94%"]);
+  const navY = useTransform(scrollY, [0, 150], ["20px", "28px"]);
+  const navOpacity = useTransform(scrollY, [0, 150], [0.9, 1]);
+  const navScale = useTransform(scrollY, [0, 150], [1, 0.98]);
 
-  // Mobile specific scroll transform for padding (to prevent shrinking too much)
-  const mobileNavPadding = useTransform(scrollY, [0, 100], ["1.5rem 1rem", "1rem 1rem"]);
+  // Readability & Depth: Dynamic Background Contrast
+  const navBgOpacity = useTransform(scrollY, [0, 150], [0.4, 0.98]);
+  const navBgColor = useTransform(navBgOpacity, (v) => `rgba(9, 9, 11, ${v})`);
+
+  // Double-Bezel Inner Shadow Intensity
+  const innerShadow = useTransform(scrollY, [0, 150], [
+    "inset 0 1px 1px rgba(255,255,255,0.1)",
+    "inset 0 1px 1px rgba(255,255,255,0.3)"
+  ]);
+
+  if (!mounted) return null;
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-[100] flex justify-center pointer-events-none">
-        <motion.nav 
-          style={{ 
+      <div className="fixed top-0 left-0 w-full z-[100] flex justify-center pointer-events-none px-4 md:px-8">
+        <motion.nav
+          style={{
             width: navWidth,
-            backgroundColor: navBg,
-            borderColor: navBorder,
             y: navY,
-            borderRadius: navRadius,
-            padding: mounted && typeof window !== 'undefined' && window.innerWidth < 1024 ? mobileNavPadding : navPadding
+            scale: navScale,
+            opacity: navOpacity,
           }}
-          className="max-w-[1400px] flex items-center justify-between border backdrop-blur-xl transition-all duration-700 ease-[0.16, 1, 0.3, 1] pointer-events-auto"
+          className="max-w-[1400px] pointer-events-auto flex items-center justify-between"
         >
-          {/* Left: Logo (Kept exactly as it was) */}
-          <div className="flex items-center gap-12">
-            <Link href="/" className="text-white text-xl md:text-2xl tracking-tighter font-medium flex items-center gap-2 group" style={{ fontFamily: "var(--font-playfair)" }}>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-rose-500 rounded-full group-hover:scale-150 transition-transform" />
-              LBC.
-            </Link>
-            
-            {/* Center: Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-10">
-              {["Experience", "Sanctuary", "Rituals", "Inquiry"].map(item => (
-                <Link 
-                  key={item} 
-                  href={`/${item.toLowerCase()}`} 
-                  className="relative text-[10px] uppercase tracking-[0.3em] font-extrabold text-zinc-500 hover:text-white transition-colors group"
-                  style={{ fontFamily: "var(--font-outfit)" }}
-                >
-                  {item}
-                  <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-rose-500 group-hover:w-full transition-all duration-500" />
-                </Link>
-              ))}
-            </div>
-          </div>
+          {/* OUTER SHELL (Double-Bezel Architecture) */}
+          <div className="w-full flex items-center justify-between p-1 md:p-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-[80px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
 
-          {/* Right: Actions */}
-          <div className="flex items-center gap-4 md:gap-8">
-            <button 
-              className="hidden lg:block text-[10px] uppercase tracking-[0.3em] font-extrabold text-rose-400 hover:text-rose-300 transition-colors" 
-              style={{ fontFamily: "var(--font-outfit)" }}
+            {/* INNER CORE */}
+            <motion.div
+              style={{
+                boxShadow: innerShadow,
+                backgroundColor: navBgColor
+              }}
+              className="w-full h-full flex items-center justify-between px-6 py-3 md:px-8 md:py-3.5 rounded-full backdrop-blur-[40px] overflow-hidden"
             >
-              Enquire Now
-            </button>
-            
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-3 md:p-4 bg-white/5 border border-white/10 rounded-full text-white hover:bg-white/10 transition-colors shadow-2xl group active:scale-90"
-            >
-              <div className="relative w-5 h-5 flex items-center justify-center">
-                <AnimatePresence mode="wait">
-                  {isMobileMenuOpen ? (
+              {/* Left: Branding */}
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="relative flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 bg-rose-500 rounded-full group-hover:scale-150 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-rose-500 blur-md opacity-40 animate-pulse" />
+                </div>
+                <span className="text-white text-lg md:text-xl tracking-tighter font-medium" style={{ fontFamily: "var(--font-playfair)" }}>LBC.</span>
+              </Link>
+
+              {/* Center: Desktop Navigation (Staggered Rhythm) */}
+              <div className="hidden lg:flex items-center gap-10">
+                {["Experience", "Sanctuary", "Rituals", "Inquiry"].map((item) => (
+                  <Link
+                    key={item}
+                    href={`/${item.toLowerCase()}`}
+                    className="relative text-[9px] uppercase tracking-[0.5em] font-black text-zinc-300 hover:text-white transition-all duration-500 group flex flex-col items-center gap-1"
+                    style={{ fontFamily: "var(--font-outfit)" }}
+                  >
+                    {item}
                     <motion.div
-                      key="close"
-                      initial={{ opacity: 0, rotate: -90 }}
-                      animate={{ opacity: 1, rotate: 0 }}
-                      exit={{ opacity: 0, rotate: 90 }}
-                    >
-                      <X weight="bold" size={18} />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ opacity: 0, rotate: 90 }}
-                      animate={{ opacity: 1, rotate: 0 }}
-                      exit={{ opacity: 0, rotate: -90 }}
-                    >
-                      <List weight="bold" size={18} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      className="w-1 h-1 rounded-full bg-rose-500 scale-0 group-hover:scale-100 transition-transform duration-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]"
+                    />
+                  </Link>
+                ))}
               </div>
-            </button>
+
+              {/* Right: Actions (Button-in-Button Architecture) */}
+              <div className="flex items-center gap-4">
+                <button
+                  className="hidden md:flex items-center gap-6 pl-6 pr-1.5 py-1.5 bg-white rounded-full text-black group hover:scale-[1.02] active:scale-[0.98] transition-all duration-500 shadow-2xl"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.4em] font-black" style={{ fontFamily: "var(--font-outfit)" }}>Enquire Now</span>
+                  <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center group-hover:bg-rose-500 transition-colors duration-500">
+                    <ArrowUpRight weight="bold" size={14} className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-500" />
+                  </div>
+                </button>
+
+                {/* Mobile Hamburger Morph */}
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 relative z-50 group"
+                >
+                  <motion.div
+                    animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                    className="w-5 h-[1.5px] bg-white rounded-full transition-all duration-500"
+                  />
+                  <motion.div
+                    animate={isMobileMenuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
+                    className="w-5 h-[1.5px] bg-rose-500 rounded-full transition-all duration-500"
+                  />
+                  <motion.div
+                    animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                    className="w-5 h-[1.5px] bg-white rounded-full transition-all duration-500"
+                  />
+                </button>
+              </div>
+            </motion.div>
           </div>
         </motion.nav>
       </div>
 
-      {/* Mobile Fullscreen Menu Overlay */}
+      {/* Fullscreen Modal Reveal */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] bg-zinc-950/95 lg:hidden flex flex-col items-center justify-center gap-8 overflow-hidden"
+          <motion.div
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(40px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-[90] bg-zinc-950/90 flex flex-col items-center justify-center px-8"
           >
-            {/* Background Accent */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-rose-500/5 blur-[120px] rounded-full pointer-events-none" />
-            
-            <div className="relative z-10 flex flex-col items-center gap-10">
+            <div className="flex flex-col items-center gap-12">
               {["Experience", "Sanctuary", "Rituals", "Inquiry", "Enquire Now"].map((item, i) => (
                 <motion.div
                   key={item}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -40, filter: "blur(10px)" }}
                   transition={{ delay: 0.1 * i, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <Link 
+                  <Link
                     href={`/${item.toLowerCase()}`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-4xl md:text-6xl tracking-tighter font-medium hover:italic transition-all duration-300 ${item === 'Enquire Now' ? 'text-rose-400' : 'text-white'}`}
+                    className="text-5xl md:text-7xl font-medium text-white hover:text-rose-400 transition-all duration-500 tracking-tighter"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
-                    {item}
+                    {item === 'Enquire Now' ? 'Enquiry' : item}.
                   </Link>
                 </motion.div>
               ))}
