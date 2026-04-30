@@ -197,10 +197,6 @@ export function Hero() {
 
       </div>
 
-      {/* Background Text Reveal - Hidden on small mobile to prevent layout issues */}
-      <div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 opacity-[0.01] select-none pointer-events-none whitespace-nowrap text-[30vw] lg:text-[25vw] font-bold text-white uppercase tracking-tighter z-0 hidden sm:block">
-        Sanctuary
-      </div>
     </section>
   );
 }
