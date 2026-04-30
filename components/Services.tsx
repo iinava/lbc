@@ -42,16 +42,22 @@ const ServiceCard = ({ category }: { category: any }) => {
             alt={category.title} 
             className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000"
           />
-          {/* Begin Ritual Overlay (Compact) */}
+          {/* Begin Ritual Action Pill (Solid Contrast) */}
           <Link 
             href={category.href}
-            className="absolute bottom-4 left-4 right-4 p-3 rounded-full bg-[var(--bg-color)]/20 backdrop-blur-md border border-white/20 flex items-center justify-between group/btn overflow-hidden"
+            className="absolute bottom-4 left-4 right-4 p-3 rounded-full bg-[var(--accent-color)] flex items-center justify-between group/btn shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden"
           >
-            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white relative z-10">Ritual</span>
-            <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-[#35251f] group-hover/btn:scale-110 transition-transform relative z-10">
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--bg-color)] relative z-10 transition-colors duration-500">
+              Explore Ritual
+            </span>
+            <div className="w-6 h-6 rounded-full bg-[var(--bg-color)] flex items-center justify-center text-[var(--accent-color)] group-hover/btn:scale-110 transition-all duration-500 relative z-10">
               <ArrowUpRight size={12} weight="bold" />
             </div>
-            <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+            {/* Subtle Hover Reveal */}
+            <div className="absolute inset-0 bg-[var(--bg-color)] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+            <span className="absolute left-3 text-[9px] font-black uppercase tracking-[0.2em] text-[var(--accent-color)] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 z-20">
+              Explore Ritual
+            </span>
           </Link>
         </div>
       </div>
@@ -60,19 +66,48 @@ const ServiceCard = ({ category }: { category: any }) => {
 };
 
 export function Services() {
-  const scrollRef = React.useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [xOffset, setXOffset] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  
+  // 3x duplication for infinite seamless loop
+  const loopedCategories = [...SERVICES_DATA.categories, ...SERVICES_DATA.categories, ...SERVICES_DATA.categories];
+  const totalCategories = SERVICES_DATA.categories.length;
+  
+  // Precise width calculation (Card: 350px + Gap: 32px)
+  const cardWidth = 350 + 32; 
+  const totalWidth = cardWidth * totalCategories;
 
+  // Manual Scroll
   const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === 'left' ? scrollLeft - (clientWidth * 0.8) : scrollLeft + (clientWidth * 0.8);
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
-    }
+    const shift = cardWidth;
+    setXOffset(prev => direction === 'left' ? prev + shift : prev - shift);
   };
 
-  // Duplicate data for seamless looping
-  const loopedCategories = [...SERVICES_DATA.categories, ...SERVICES_DATA.categories, ...SERVICES_DATA.categories];
+  // Autoscroll Loop Logic
+  React.useEffect(() => {
+    let animationId: number;
+    const speed = 0.8; // Pixels per frame
+
+    const animate = () => {
+      if (!isHovered) {
+        setXOffset(prev => {
+          let next = prev - speed;
+          // Seamless reset: If we've scrolled past one full set, snap back to the middle set
+          if (Math.abs(next) >= totalWidth * 2) return next + totalWidth;
+          if (next > -totalWidth) return next - totalWidth;
+          return next;
+        });
+      }
+      animationId = requestAnimationFrame(animate);
+    };
+
+    // Initial positioning in the middle set for bidirectional infinite feel
+    setXOffset(-totalWidth);
+    
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
+  }, [isHovered, totalWidth]);
 
   return (
     <section id="services" className="relative w-full min-h-[100dvh] flex flex-col justify-center py-12 md:py-16 bg-[var(--bg-color)] overflow-hidden">
@@ -99,7 +134,7 @@ export function Services() {
             </h2>
           </motion.div>
 
-          {/* Carousel Controls (Small) */}
+          {/* Carousel Controls */}
           <div className="flex items-center gap-3">
             <button 
               onClick={() => scroll('left')}
@@ -116,25 +151,20 @@ export function Services() {
           </div>
         </div>
 
-        {/* Carousel Container with Mask-Based Vignetting */}
+        {/* Carousel Stage with Mask-Based Vignetting */}
         <div 
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative w-full"
+          className="relative w-full cursor-grab active:cursor-grabbing"
           style={{
-            maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
+            maskImage: "linear-gradient(to right, transparent, black 2%, black 98%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 2%, black 98%, transparent)"
           }}
         >
           <motion.div 
-            animate={{ 
-              x: isHovered ? undefined : ["0%", "-33.333%"] 
-            }}
-            transition={{ 
-              duration: 40, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
+            ref={containerRef}
+            animate={{ x: xOffset }}
+            transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
             className="flex gap-4 md:gap-8 w-fit py-4"
           >
             {loopedCategories.map((category, index) => (
@@ -148,4 +178,5 @@ export function Services() {
     </section>
   );
 }
+
 
