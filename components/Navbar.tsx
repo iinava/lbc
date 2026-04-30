@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
-import { NoiseBackground } from "./ui/noise-background";
 
 export function Navbar() {
   const { scrollY } = useScroll();
@@ -65,22 +64,12 @@ export function Navbar() {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-4 md:gap-8">
-            <NoiseBackground
-              containerClassName="hidden lg:block p-[1px] rounded-full overflow-hidden bg-zinc-900 border-none shadow-none"
-              gradientColors={[
-                "rgb(244, 63, 94)",
-                "rgb(251, 113, 133)",
-                "rgb(190, 18, 60)",
-              ]}
-              noiseIntensity={0.2}
+            <button 
+              className="hidden lg:block text-[10px] uppercase tracking-[0.3em] font-extrabold text-rose-400 hover:text-rose-300 transition-colors" 
+              style={{ fontFamily: "var(--font-outfit)" }}
             >
-              <button 
-                className="px-6 py-2 bg-zinc-950 text-white rounded-full text-[10px] uppercase tracking-[0.3em] font-extrabold hover:text-rose-400 transition-colors" 
-                style={{ fontFamily: "var(--font-outfit)" }}
-              >
-                Enquire Now
-              </button>
-            </NoiseBackground>
+              Enquire Now
+            </button>
             
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

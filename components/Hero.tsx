@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { ArrowUpRight, Sparkle } from "@phosphor-icons/react";
 import { useRef, useState, useEffect } from "react";
 import LineWaves from "./LineWaves/LineWaves";
-import { NoiseBackground } from "./ui/noise-background";
 
 function MagneticButton({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -119,22 +118,10 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-8 pt-4">
-            <MagneticButton className="w-full sm:w-auto">
-              <NoiseBackground
-                containerClassName="w-full sm:w-auto p-[1px] rounded-xl overflow-hidden bg-zinc-900 border-none shadow-none"
-                gradientColors={[
-                  "rgb(244, 63, 94)",
-                  "rgb(251, 113, 133)",
-                  "rgb(190, 18, 60)",
-                ]}
-                noiseIntensity={0.3}
-              >
-                <button className="relative w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-zinc-950 text-white rounded-[11px] font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase flex items-center justify-center gap-4 group transition-transform overflow-hidden" style={{ fontFamily: "var(--font-outfit)" }}>
-                  <span className="relative z-10">Book Experience</span>
-                  <ArrowUpRight weight="bold" size={16} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                </button>
-              </NoiseBackground>
+            <MagneticButton className="w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-white text-black rounded-xl font-bold text-[10px] md:text-[11px] tracking-[0.2em] uppercase flex items-center justify-center gap-4 group transition-transform shadow-2xl overflow-hidden relative" style={{ fontFamily: "var(--font-outfit)" }}>
+              <span className="relative z-10">Book Experience</span>
+              <ArrowUpRight weight="bold" size={16} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <div className="absolute inset-0 bg-rose-50 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
             </MagneticButton>
 
             <button className="text-zinc-500 hover:text-white transition-colors flex items-center gap-3 font-bold uppercase text-[9px] md:text-[10px] tracking-[0.3em]" style={{ fontFamily: "var(--font-outfit)" }}>
