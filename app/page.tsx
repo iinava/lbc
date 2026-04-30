@@ -1,11 +1,13 @@
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
+import { Services } from "@/components/Services";
 
 export default function Home() {
   return (
-    <main className="min-h-[100dvh] bg-[#050505] selection:bg-amber-500/30 selection:text-amber-200">
+    <main className="min-h-[100dvh]">
       <Navbar />
       <Hero />
+      <Services />
     </main>
   );
 }
