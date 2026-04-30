@@ -69,7 +69,7 @@ export function Hero() {
       {/* Floating Grain Overlay */}
       <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-4 md:px-8 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-center">
+      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-4 md:px-8 pt-40 pb-24 md:pt-48 md:pb-32 lg:pt-32 lg:pb-24 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-center">
         
         {/* Left Column: Typography */}
         <motion.div 
