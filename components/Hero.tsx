@@ -69,7 +69,7 @@ export function Hero() {
       {/* Floating Grain Overlay */}
       <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-4 md:px-8 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-4 md:px-8 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-20 items-center">
         
         {/* Left Column: Typography */}
         <motion.div 
@@ -131,13 +131,13 @@ export function Hero() {
         </motion.div>
 
         {/* Right Column: Visual Composition (Liquid Glass & Asymmetry) */}
-        <div className="relative h-[500px] md:h-[600px] lg:h-[750px] w-full flex items-center justify-center lg:justify-end">
+        <div className="relative h-[500px] md:h-[600px] lg:h-[650px] w-full flex items-center justify-center lg:justify-end">
           {/* Main Image Container */}
           <motion.div 
              initial={{ opacity: 0, scale: 0.95, rotate: 2 }}
              animate={{ opacity: 1, scale: 1, rotate: 0 }}
              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-             className="relative w-full lg:w-[90%] h-full lg:h-[85%] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden group shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] z-20 border border-white/5"
+             className="relative w-full lg:w-[85%] h-full lg:h-[80%] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden group shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] z-20 border border-white/5"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-60 z-10" />
             <img 
@@ -176,11 +176,11 @@ export function Hero() {
           <motion.div 
             animate={{ y: [0, -30, 0], rotate: [0, 5, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="hidden sm:flex absolute top-0 right-[-2%] md:right-[-5%] w-40 h-40 md:w-56 md:h-56 rounded-[2rem] md:rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-3xl z-30 shadow-2xl items-center justify-center p-6 md:p-8 text-center"
+            className="hidden sm:flex absolute top-0 right-[-2%] md:right-[-5%] w-32 h-32 md:w-44 md:h-44 rounded-[1.5rem] md:rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-3xl z-30 shadow-2xl items-center justify-center p-4 md:p-6 text-center"
           >
-             <div className="flex flex-col gap-2 md:gap-3">
-                <div className="text-3xl md:text-5xl font-medium text-rose-100" style={{ fontFamily: "var(--font-playfair)" }}>15+</div>
-                <div className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-extrabold" style={{ fontFamily: "var(--font-outfit)" }}>Years of <br/> Mastery</div>
+             <div className="flex flex-col gap-1 md:gap-2">
+                <div className="text-2xl md:text-4xl font-medium text-rose-100" style={{ fontFamily: "var(--font-playfair)" }}>15+</div>
+                <div className="text-[7px] md:text-[9px] uppercase tracking-[0.3em] text-zinc-500 font-extrabold" style={{ fontFamily: "var(--font-outfit)" }}>Years of <br/> Mastery</div>
              </div>
           </motion.div>
 
